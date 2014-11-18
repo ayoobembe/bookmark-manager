@@ -1,5 +1,5 @@
 require 'data_mapper'
-require 'tag'
+# require 'tag'
 #This class corresponds to a table in the database
 #We can use it to manipulate the data 
 
