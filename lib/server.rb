@@ -41,11 +41,16 @@ require './lib/user'
 
 	post '/users' do 
 		user = User.create(:email => params[:email],
-								:password => params[:password])
+								:password => params[:password],
+								:password_confirmation => params[:password_confirmation])
 		session[:user_id] = user.id 
 		redirect('/')
 	end
 
+	def password=(password)
+		@password = password 
+		self.password_digest = BCrypt::Password.create(password)
+	end
 	
 	helpers do 
 		def current_user
