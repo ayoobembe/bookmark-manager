@@ -12,7 +12,7 @@ class User
 	property :id, Serial
 	property :email, String
 	property :password_digest, Text
-	property :email, String, :unique => true
+	property :email, String, :unique => true, :message => "This email is already taken"
 
 
 	def password=(password)

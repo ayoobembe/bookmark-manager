@@ -4,20 +4,19 @@ require 'data_mapper'
 require './lib/tag'
 require './lib/user'
 require 'rack-flash'
+require_relative 'helpers/application'
+require_relative 'data_mapper_setup'
 
 
-# class BookmarkManager < Sinatra::Base
+class BookmarkManager < Sinatra::Base
 
-	set :views, Proc.new{File.join(root,'..','views')}
-  env = ENV["RACK_ENV"] || "development"
+	include ApplicationHelpers
 
-  DataMapper.setup(:default, "postgres://localhost/bookmark_manager_#{env}")
-  DataMapper.finalize
-  DataMapper.auto_upgrade!
-
+	set :views, Proc.new{File.join(root, 'views')}
   enable :sessions
-  use Rack::Flash
   set :session_secret, 'super secret'
+  use Rack::Flash
+  
 
 	get '/' do
 	  @links = Link.all
@@ -64,13 +63,9 @@ require 'rack-flash'
 	# 	self.password_digest = BCrypt::Password.create(password)
 	# end
 	
-	helpers do 
-		def current_user
-			@current_user ||= User.get(session[:user_id]) if session[:user_id]
-		end
-	end
+	
 
 
 # 	  run! if app_file == $0
-# end
+end
 

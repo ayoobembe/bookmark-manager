@@ -7,13 +7,13 @@ test or development.
 The environment determines what database to use
 =end
 
-require 'server'
+require './app/server'
 require 'data_mapper'
 require 'database_cleaner'
 require 'capybara/rspec'
 require 'sinatra'
 
-Capybara.app = Sinatra::Application.new 
+Capybara.app = BookmarkManager
 
 RSpec.configure do |config|
 
